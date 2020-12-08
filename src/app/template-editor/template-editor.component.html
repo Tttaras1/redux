@@ -1,0 +1,31 @@
+<div class="wrapper" #wrapper>
+    <ng-container *ngFor="let template of templates$ | async">
+        <div
+        class="content"
+        [attr.data-id]="template.id"
+        [attr.data-name]="template.name"
+        [attr.data-modified]="template.modified"
+        [innerHTML]="template.template | safeHtml"
+        (mouseup)="onMouseUp()">
+        </div>
+    </ng-container>
+</div>
+
+<div *ngIf="isMenuOpen">
+    <span>Set text instead of '{{selectedText}}': </span>
+    <mat-form-field>
+        <mat-label>New text</mat-label>
+        <input matInput type="text" (click)="$event.stopPropagation()" #input/>
+    </mat-form-field>
+    <button mat-button (click)="applyText(input.value)">Apply text</button>
+    <br>
+    <span>Set font size: </span>
+    <mat-form-field appearance="fill">
+        <mat-label>Font size</mat-label>
+        <mat-select (selectionChange)="applyFontSize($event)">
+          <mat-option *ngFor="let fontSize of allowedFontSizes" [value]="fontSize">
+            {{fontSize}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>

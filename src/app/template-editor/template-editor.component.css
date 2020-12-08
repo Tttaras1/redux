@@ -1,0 +1,7 @@
+.content {
+    user-select: none;
+}
+
+.content .editable {
+    user-select: all;
+}
